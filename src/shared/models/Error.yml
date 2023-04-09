@@ -1,0 +1,14 @@
+type: object
+
+properties:
+  code:
+    type: integer
+    summary: Error number
+    format: int32
+  message:
+    type: string
+    description: Error message
+
+required:
+  - code
+  - message

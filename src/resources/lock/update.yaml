@@ -1,0 +1,28 @@
+operationId: updateAdCampaign
+summary: Update the Ad Campaign
+tags:
+  - Ad Campaign
+parameters:
+  - $ref: 'parameters.yml#/campaignId'   
+requestBody: 
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "./models/AdCampaign.yaml" 
+responses:
+  '200':
+    $ref : '../../shared/responses/success.yaml'
+  '400':
+    $ref: '../../shared/responses/bad-request.yml'      
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  '404':
+    $ref: '../../shared/responses/not-found.yml'
+  '500':
+    $ref: '../../shared/responses/server-error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected-error.yml'
+
+security:
+  - bearerAuth: []

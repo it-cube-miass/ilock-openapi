@@ -1,0 +1,8 @@
+description: Bad Request
+content:
+  application/json:
+    schema:
+      $ref: '../models/Error.yml'
+    example:
+      code: 400
+      message: error parsing request body

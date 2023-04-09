@@ -1,0 +1,17 @@
+{
+  "name": "ilock-openapi",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "preview": "serve public",
+    "mock": "prism mock public/specs/ilock@latest.yaml",
+    "mock:d": "prism mock -d public/specs/ilock@latest.yaml",
+    "build": "redocly bundle -o public/specs/ilock@latest",
+    "test": "redocly lint"
+  },
+  "devDependencies": {
+    "@redocly/cli": "1.0.0-beta.125",
+    "@stoplight/prism-cli": "^4.11.1",
+    "serve": "^14.2.0"
+  }
+}

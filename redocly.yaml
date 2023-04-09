@@ -1,0 +1,11 @@
+# See https://redocly.com/docs/cli/configuration/ for more information.
+apis:
+  ilock@latest:
+    root: src/ilock.yaml
+extends:
+  - recommended
+rules:
+  info-license: off
+  operation-description: off
+  operation-summary: off
+  no-unused-components: error

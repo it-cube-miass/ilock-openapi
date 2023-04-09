@@ -1,0 +1,27 @@
+operationId: logIn
+summary: Log in
+tags:
+- Login
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: './model/Credentials.yaml'
+
+responses:
+  '200':
+    description: Successed login
+    content:
+      application/json:
+        schema:
+          $ref: '../../shared/models/AuthorizedUser.yaml'
+  '400':
+    $ref: '../../shared/responses/bad-request.yml'
+  '500':
+    $ref: '../../shared/responses/server-error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected-error.yml'
+
+security: []

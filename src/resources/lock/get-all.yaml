@@ -1,0 +1,23 @@
+operationId: getAllLock
+summary: Список замков доступных пользователю
+description: Возвращает массив всех доступных пользователю замков
+tags:
+- Lock
+responses:
+  '200':
+    description: ''
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "./models/Lock.yaml"
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  '500':
+    $ref: '../../shared/responses/server-error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected-error.yml'
+
+security:
+  - bearerAuth: []

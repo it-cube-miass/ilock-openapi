@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  version: 0.0.1
+  title: iLock API
+  # contact:
+  #   email: contact@example.com
+  #   url: 'http://example.com/contact'
+
+servers:
+  - url: 'http://localhost:4010'
+
+paths:
+  /api/login:
+    post:
+      $ref: "resources/user/log-in.yaml"
+  /api/lock:
+    get:
+      $ref: 'resources/lock/get-all.yaml'
+  /api/lock/{lockId}/open:
+    get:
+      $ref: 'resources/lock/open.yaml'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

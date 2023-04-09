@@ -1,0 +1,8 @@
+description: Unexpected error
+content:
+  application/json:
+    schema:
+      $ref: '../models/Error.yml'
+    example:
+      code: 501
+      message: some error message

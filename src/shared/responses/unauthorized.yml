@@ -1,0 +1,8 @@
+description: Unauthorized
+content:
+  application/json:
+    schema:
+      $ref: '../models/Error.yml'
+    example:
+      code: 401
+      message: Unable to authenticate you.

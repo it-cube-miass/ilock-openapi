@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  version: 0.0.1
+  title: iLock API
+servers:
+  - url: http://localhost:4010
+paths:
+  /api/login:
+    post:
+      operationId: logIn
+      summary: Log in
+      tags:
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        '200':
+          description: Successed login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizedUser'
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '500':
+          $ref: '#/components/responses/server-error'
+        default:
+          $ref: '#/components/responses/unexpected-error'
+      security: []
+  /api/lock:
+    get:
+      operationId: getAllLock
+      summary: Список замков доступных пользователю
+      description: Возвращает массив всех доступных пользователю замков
+      tags:
+        - Lock
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lock'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '500':
+          $ref: '#/components/responses/server-error'
+        default:
+          $ref: '#/components/responses/unexpected-error'
+      security:
+        - bearerAuth: []
+  /api/lock/{lockId}/open:
+    get:
+      operationId: openLock
+      summary: Открыть замок
+      description: Открывает замок, если он доступен пользователю
+      tags:
+        - Lock
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '404':
+          $ref: '#/components/responses/not-found'
+        '500':
+          $ref: '#/components/responses/server-error'
+        default:
+          $ref: '#/components/responses/unexpected-error'
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Credentials:
+      type: object
+      properties:
+        username:
+          type: string
+          example: admin
+        password:
+          type: string
+          example: admin
+      required:
+        - username
+        - password
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          summary: Error number
+          format: int32
+        message:
+          type: string
+          description: Error message
+      required:
+        - code
+        - message
+    AuthorizedUser:
+      type: object
+      properties:
+        username:
+          type: string
+          example: admin
+        accessToken:
+          type: string
+          example: 0tn0io1kl6lr3nf4okdibkrldu
+      required:
+        - username
+        - accessToken
+    Lock:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          format: int32
+        name:
+          type: string
+          example: Lock 1
+      required:
+        - id
+        - name
+    Success:
+      type: object
+      properties:
+        done:
+          type: boolean
+          const: true
+      required:
+        - done
+  responses:
+    unexpected-error:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 501
+            message: some error message
+    bad-request:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 400
+            message: error parsing request body
+    server-error:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 500
+            message: Unexpected server-side error
+    unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Unable to authenticate you.
+    success:
+      description: Successed response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Success'
+    not-found:
+      description: The resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: The resource you requested could not be found.

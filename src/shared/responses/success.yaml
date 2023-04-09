@@ -1,0 +1,5 @@
+description: Successed response
+content:
+  application/json:
+    schema:
+      $ref : ../models/Success.yaml

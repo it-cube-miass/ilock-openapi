@@ -1,0 +1,8 @@
+type: object
+properties:
+  done:
+    type: boolean
+    const: true
+
+required:
+  - done    

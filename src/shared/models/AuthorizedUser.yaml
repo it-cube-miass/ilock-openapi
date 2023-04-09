@@ -1,0 +1,12 @@
+type: object
+properties:
+  username:
+    type: string
+    example: admin
+  accessToken:
+    type: string
+    example: 0tn0io1kl6lr3nf4okdibkrldu
+
+required:
+  - username
+  - accessToken
